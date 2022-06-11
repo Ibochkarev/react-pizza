@@ -1,9 +1,16 @@
 import React from "react";
 import { Categories, SortPopup, PizzaBlock } from '../components';
 
-import pizzas from '../assets/pizzas.json'
-
 function Home() {
+  const [items, setItems] = React.setState([])
+
+  fetch('https://62a4571647e6e40063909617.mockapi.io/items')
+    .then((res) => {
+      return res.json();
+    }).then((arr) => {
+      setItems(arr);
+    });
+
   return (
     <div className="container">
       <div className="content__top">
@@ -16,7 +23,7 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {pizzas.map((obj) => (
+        {items.map((obj) => (
           <PizzaBlock {... obj} key={obj.id} />
         ))}
       </div>
